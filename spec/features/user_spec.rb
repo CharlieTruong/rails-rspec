@@ -25,7 +25,6 @@ feature 'User browsing the website' do
       post = Post.create!(title: "Title", content: "Content", is_published: true)
       visit root_url
       click_link "Title"
-      # expect(page).to have_content("Title", "Content")
       expect(page).to satisfy {|page|page.has_content?('Title') and page.has_content?('Content')}
     end
   end
