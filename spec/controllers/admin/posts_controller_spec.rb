@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::PostsController do
+describe Admin::PostsController, :type => :controller do
   describe "admin panel" do
     it "welcome page requires http authentication" do
       get :index
