@@ -10,7 +10,6 @@ feature 'User browsing the website' do
       posts = []
       all('a').each { |a| posts << a[:href] }
       expect(posts[1]).to eq(post_url(post2))
-      # page.body.should =~ /Blah.*Title/
     end
 
     it "can click on titles of recent posts and should be on the post show page" do
@@ -26,8 +25,8 @@ feature 'User browsing the website' do
       post = Post.create!(title: "Title", content: "Content", is_published: true)
       visit root_url
       click_link "Title"
-      expect(page).to have_content("Title")
-      expect(page).to have_content("Content")
+      # expect(page).to have_content("Title", "Content")
+      expect(page).to satisfy {|page|page.has_content?('Title') and page.has_content?('Content')}
     end
   end
 end
