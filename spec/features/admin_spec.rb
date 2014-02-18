@@ -58,11 +58,25 @@ feature 'Admin panel' do
 
   context "on post show page" do
     it "can visit a post show page by clicking the title" do
+      page.driver.browser.authorize 'geek', 'jock'
 
+      post = Post.create!(title: "Title", content: "Content", is_published: true)
+      visit admin_posts_path
+      expect(find_link('Title')[:href]).to eq(admin_post_url(post))
     end
 
-    it "can see an edit link that takes you to the edit post path"
+    it "can see an edit link that takes you to the edit post path" do
+      page.driver.browser.authorize 'geek', 'jock'
+      post = Post.create!(title: "Title", content: "Content", is_published: true)
+      visit admin_post_path(post)
+      expect(find_link('Edit')[:href]).to eq(edit_admin_post_url(post))
+    end
 
-    it "can go to the admin homepage by clicking the Admin welcome page link"
+    it "can go to the admin homepage by clicking the Admin welcome page link" do
+      page.driver.browser.authorize 'geek', 'jock'
+      post = Post.create!(title: "Title", content: "Content", is_published: true)
+      visit admin_post_path(post)
+      expect(find_link('Admin welcome page')[:href]).to eq(admin_posts_url)
+    end
   end
 end
