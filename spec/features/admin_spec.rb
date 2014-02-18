@@ -6,7 +6,7 @@ feature 'Admin panel' do
       page.driver.browser.authorize 'geek', 'jock'
 
       Post.create!(title: "Title", content: "Content")
-      visit admin_posts_path
+      visit root
       page.should have_content("Title")
     end
 
